@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sabina - UX/UI Designer</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>
+            /* Global Styles */
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            body {
+                background-color: #f0f0f0;
+                color: #222;
+                overflow-x: hidden;
+            }
+
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            /* Creative Cursor */
+            .cursor {
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: rgba(0, 0, 0, 0.5);
+                pointer-events: none;
+                z-index: 9999;
+                transition: transform 0.2s ease;
+                transform: translate(-50%, -50%);
+                mix-blend-mode: difference;
+            }
+
+            .cursor-follower {
+                position: fixed;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: rgba(0, 0, 0, 0.1);
+                pointer-events: none;
+                z-index: 9998;
+                transition: transform 0.3s ease;
+                transform: translate(-50%, -50%);
+            }
+
+            /* Navigation */
+            nav {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                padding: 40px 0;
+                z-index: 100;
+                transition: all 0.5s ease;
+            }
+
+            nav.scrolled {
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 20px 0;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                font-size: 22px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                color: #222;
+                text-decoration: none;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .logo::before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                bottom: 0;
+                left: -100%;
+                background-color: #222;
+                transition: left 0.5s ease;
+            }
+
+            .logo:hover::before {
+                left: 0;
+            }
+
+            .nav-links {
+                display: flex;
+                list-style: none;
+                gap: 40px;
+            }
+
+            .nav-link {
+                position: relative;
+                text-decoration: none;
+                color: #222;
+                font-weight: 500;
+                font-size: 16px;
+                padding: 5px 0;
+                overflow: hidden;
+            }
+
+            .nav-link::before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                bottom: 0;
+                left: -100%;
+                background-color: #222;
+                transition: left 0.3s ease;
+            }
+
+            .nav-link:hover::before {
+                left: 0;
+            }
+
+            .nav-link.active::before {
+                left: 0;
+            }
+
+            /* Main Content */
+            main {
+                min-height: 100vh;
+                padding-top: 100px;
+            }
+
+            /* About Section */
+            .about-section {
+                padding: 100px 0;
+                position: relative;
+            }
+
+            .about-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+                align-items: center;
+            }
+
+            .about-img-container {
+                position: relative;
+                overflow: hidden;
+                border-radius: 10px;
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+                transform: translateY(50px);
+                opacity: 0;
+                animation: fadeInUp 1s forwards 0.3s;
+            }
+
+            .about-img {
+                width: 100%;
+                height: auto;
+                display: block;
+                transition: transform 0.7s ease;
+            }
+
+            .about-img-container:hover .about-img {
+                transform: scale(1.05);
+            }
+
+            .about-content {
+                transform: translateY(50px);
+                opacity: 0;
+                animation: fadeInUp 1s forwards 0.5s;
+            }
+
+            .section-title {
+                font-size: 40px;
+                font-weight: 700;
+                margin-bottom: 30px;
+                position: relative;
+                display: inline-block;
+            }
+
+            .section-title::after {
+                content: '';
+                position: absolute;
+                width: 70%;
+                height: 4px;
+                background-color: #222;
+                bottom: -10px;
+                left: 0;
+                transform: scaleX(0);
+                transform-origin: left;
+                animation: scaleIn 1s forwards 1s;
+            }
+
+            @keyframes scaleIn {
+                to {
+                    transform: scaleX(1);
+                }
+            }
+
+            .about-text {
+                font-size: 18px;
+                line-height: 1.8;
+                margin-bottom: 30px;
+                color: #444;
+            }
+
+            .tools-title {
+                font-size: 22px;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+
+            .tools-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin-bottom: 40px;
+            }
+
+            .tool-item {
+                padding: 10px 20px;
+                background-color: white;
+                border-radius: 30px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .tool-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .facts-title {
+                font-size: 22px;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+
+            .facts-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .fact-item {
+                padding: 20px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .fact-item::before {
+                content: '';
+                position: absolute;
+                width: 5px;
+                height: 0;
+                left: 0;
+                top: 0;
+                background-color: #222;
+                transition: height 0.5s ease;
+            }
+
+            .fact-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .fact-item:hover::before {
+                height: 100%;
+            }
+
+            /* Resume Section */
+            .resume-section {
+                padding: 100px 0;
+                position: relative;
+                background-color: #fff;
+            }
+
+            .resume-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 60px;
+            }
+
+            .resume-img-container {
+                flex: 0 0 300px;
+                position: relative;
+                overflow: hidden;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                transform: translateY(50px);
+                opacity: 0;
+                animation: fadeInUp 1s forwards 0.3s;
+            }
+
+            .resume-img {
+                width: 100%;
+                height: auto;
+                display: block;
+                transition: transform 0.7s ease;
+            }
+
+            .resume-img-container:hover .resume-img {
+                transform: scale(1.05);
+            }
+
+            /* Work Section */
+            .work-section {
+                padding: 100px 0;
+                position: relative;
+            }
+
+            .work-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 40px;
+                margin-top: 60px;
+            }
+
+            .work-item {
+                background-color: white;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                transform: translateY(50px);
+                opacity: 0;
+                transition: all 0.4s ease;
+                position: relative;
+            }
+
+            .work-item:nth-child(1) {
+                animation: fadeInUp 0.8s forwards 0.3s;
+            }
+
+            .work-item:nth-child(2) {
+                animation: fadeInUp 0.8s forwards 0.5s;
+            }
+
+            .work-item:nth-child(3) {
+                animation: fadeInUp 0.8s forwards 0.7s;
+            }
+
+            .work-img-container {
+                position: relative;
+                overflow: hidden;
+                height: 240px;
+            }
+
+            .work-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 1s ease;
+            }
+
+            .work-item:hover .work-img {
+                transform: scale(1.1);
+            }
+
+            .work-content {
+                padding: 25px;
+                position: relative;
+            }
+
+            .work-title {
+                font-size: 22px;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            .work-category {
+                color: #777;
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+
+            .work-description {
+                color: #555;
+                margin-bottom: 20px;
+                line-height: 1.6;
+            }
+
+            .view-project {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #222;
+                color: white;
+                border-radius: 30px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                transform: translateY(0);
+            }
+
+            .view-project:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Footer */
+            footer {
+                background-color: #222;
+                color: white;
+                padding: 60px 0;
+                text-align: center;
+            }
+
+            .footer-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .footer-logo {
+                font-size: 24px;
+                font-weight: 700;
+                letter-spacing: 2px;
+            }
+
+            .social-links {
+                display: flex;
+                gap: 20px;
+            }
+
+            .social-link {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.1);
+                color: white;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-size: 14px;
+            }
+
+            .social-link:hover {
+                background-color: white;
+                color: #222;
+                transform: translateY(-5px);
+            }
+
+            .copyright {
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+            /* Animations */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(50px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+
+            /* Hide pages by default */
+            #about-page,
+            #resume-page,
+            #work-page {
+                display: none;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            }
+
+            /* Show active page */
+            .active-page {
+                display: block !important;
+                opacity: 1 !important;
+            }
+
+            /* Parallax effect */
+            .parallax-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+
+            .shape {
+                position: absolute;
+                border-radius: 50%;
+                background-color: rgba(0, 0, 0, 0.03);
+            }
+
+            .shape-1 {
+                width: 400px;
+                height: 400px;
+                top: -100px;
+                left: -100px;
+            }
+
+            .shape-2 {
+                width: 300px;
+                height: 300px;
+                bottom: 50px;
+                right: 100px;
+            }
+
+            .shape-3 {
+                width: 200px;
+                height: 200px;
+                top: 30%;
+                right: 10%;
+            }
+
+            /* Creative Scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #888;
+                border-radius: 4px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+            /* Reveal Animation */
+            .reveal {
+                position: relative;
+                transform: translateY(50px);
+                opacity: 0;
+                transition: all 0.8s ease;
+            }
+
+            .reveal.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            /* Loading Animation */
+            .loader-wrapper {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+
+            .loader {
+                width: 40px;
+                height: 40px;
+                border: 3px solid #f3f3f3;
+                border-top: 3px solid #222;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* Text Animation */
+            .animated-text {
+                overflow: hidden;
+                display: block;
+            }
+
+            .animated-text span {
+                display: inline-block;
+                transform: translateY(100%);
+                animation: textReveal 0.8s forwards;
+            }
+
+            @keyframes textReveal {
+                to {
+                    transform: translateY(0);
+                }
+            }
+
+            /* Mobile Responsive Styles */
+            @media only screen and (max-width: 768px) {
+
+                /* Fix container width */
+                .container {
+                    width: 100%;
+                    padding: 0 15px;
+                    box-sizing: border-box;
+                }
+
+                /* Ensure main content is visible */
+                main {
+                    padding-top: 70px;
+                    /* Reduced padding-top */
+                }
+
+                /* Navigation adjustments */
+                nav {
+                    padding: 20px 0;
+                }
+
+                .nav-links {
+                    gap: 15px;
+                    justify-content: center;
+                    width: 100%;
+                }
+
+                /* About section fundamental fixes */
+                .about-section,
+                .resume-section,
+                .work-section {
+                    padding: 30px 0;
+                    overflow: visible;
+                }
+
+                /* Critical grid restructure */
+                .about-grid {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                }
+
+                /* Image container fixes */
+                .about-img-container {
+                    width: 100%;
+                    max-width: 280px;
+                    margin: 0 auto;
+                    height: auto;
+                    overflow: visible;
+                    transform: none;
+                    opacity: 1;
+                    animation: none;
+                }
+
+                .about-img {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                }
+
+                /* Content container fixes */
+                .about-content {
+                    width: 100%;
+                    padding: 0 10px;
+                    transform: none;
+                    opacity: 1;
+                    animation: none;
+                }
+
+                /* Fix text visibility */
+                .section-title,
+                .about-text,
+                .tools-title,
+                .facts-title {
+                    color: #222;
+                    text-shadow: none;
+                }
+
+                .section-title::after {
+                    animation: none;
+                    transform: scaleX(1);
+                }
+
+                /* Ensure background doesn't interfere */
+                .parallax-bg {
+                    opacity: 0.3;
+                    /* Reduce opacity of background shapes */
+                }
+
+                /* Tools section adjustments */
+                .tools-list {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    gap: 8px;
+                }
+
+                .tool-item {
+                    padding: 8px 12px;
+                    font-size: 13px;
+                    margin-bottom: 8px;
+                }
+
+                /* Facts grid adjustments */
+                .facts-grid {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                }
+
+                .fact-item {
+                    padding: 15px;
+                    font-size: 14px;
+                    line-height: 1.4;
+                }
+
+                /* Fix animations that might hide content */
+                .animated-text span {
+                    transform: none;
+                    animation: none;
+                    display: inline;
+                }
+
+                .reveal {
+                    transform: none;
+                    opacity: 1;
+                    transition: none;
+                }
+
+                /* Ensure other elements are visible */
+                #about-page,
+                #resume-page,
+                #work-page {
+                    opacity: 1;
+                }
+
+                .active-page {
+                    display: block;
+                    opacity: 1;
+                }
+
+                /* Disable custom cursor on touch devices */
+                .cursor,
+                .cursor-follower {
+                    display: none;
+                }
+
+                /* Work section adjustments */
+                .work-grid {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                    margin-top: 30px;
+                }
+
+                .work-item {
+                    transform: none;
+                    opacity: 1;
+                    animation: none;
+                }
+
+                .work-img-container {
+                    height: 200px;
+                }
+
+                /* Resume section adjustments */
+                .resume-img-container {
+                    flex: none;
+                    max-width: 240px;
+                    margin: 0 auto;
+                    transform: none;
+                    opacity: 1;
+                    animation: none;
+                }
+            }
+
+            .social-links {
+                display: flex;
+                gap: 15px;
+            }
+
+            .social-link {
+                text-decoration: none;
+                font-size: 35px;
+                color: #ffffff;
+                /* Чёрный */
+                display: flex;
+                align-items: center;
+                transition: color 0.3s ease;
+            }
+
+
+            /* Ховер-эффект — серый при наведении */
+            .social-link:hover {
+                color: #555;
+            }
+
+            /* Extra small devices */
+            @media only screen and (max-width: 480px) {
+
+                /* Further reduce sizes */
+                .section-title {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }
+
+                .about-text {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-bottom: 15px;
+                }
+
+                .tools-title,
+                .facts-title {
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                }
+
+                .fact-item {
+                    padding: 12px;
+                }
+
+                /* Adjust navigation further */
+                .nav-links {
+                    gap: 10px;
+                }
+
+                .nav-link {
+                    font-size: 13px;
+                }
+
+                /* Work grid adjustments */
+                .work-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .work-img-container {
+                    height: 180px;
+                }
+
+                .work-content {
+                    padding: 20px 15px;
+                }
+
+                .work-title {
+                    font-size: 18px;
+                }
+
+                .work-description {
+                    font-size: 13px;
+                    margin-bottom: 15px;
+                }
+
+                .view-project {
+                    padding: 8px 16px;
+                    font-size: 13px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Loading Animation -->
+        <div class="loader-wrapper">
+            <div class="loader"></div>
+        </div>
+
+        <!-- Custom Cursor -->
+        <div class="cursor"></div>
+        <div class="cursor-follower"></div>
+
+        <nav>
+            <div class="container nav-container">
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active" data-page="about-page">About</a></li>
+                    <li><a href="#" class="nav-link" data-page="resume-page">Resume</a></li>
+                    <li><a href="#" class="nav-link" data-page="work-page">Work</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <!-- About Page -->
+            <section id="about-page" class="active-page">
+                <div class="about-section">
+                    <div class="parallax-bg">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                        <div class="shape shape-3"></div>
+                    </div>
+                    <div class="container">
+                        <div class="about-grid">
+                            <div class="about-img-container">
+                                <img src="./assets/sabin.jpg" alt="Sabina" class="about-img">
+                            </div>
+                            <div class="about-content">
+                                <h1 class="section-title">
+                                    <span class="animated-text"><span>About Me</span></span>
+                                </h1>
+                                <p class="about-text">I'm Sabina, a passionate UX/UI Designer dedicated to crafting
+                                    digital
+                                    experiences that are both beautiful and functional. With a minimalist approach, I
+                                    design
+                                    interfaces that are clean, intuitive, and engaging.</p>
+                                <p class="about-text">My design philosophy is all about putting users first, while
+                                    maintaining a strong sense of visual harmony. I believe that great design should
+                                    feel
+                                    effortless—natural to use, yet powerful in impact.</p>
+
+                                <h3 class="tools-title reveal">Tools I Use</h3>
+                                <div class="tools-list reveal">
+                                    <div class="tool-item">Adobe Illustrator</div>
+                                    <div class="tool-item">Adobe Photoshop</div>
+                                    <div class="tool-item">Figma</div>
+                                    <div class="tool-item">PicsArt</div>
+                                </div>
+
+                                <h3 class="facts-title reveal">Fun Facts About Me</h3>
+                                <div class="facts-grid reveal">
+                                    <div class="fact-item">I'm a UX/UI designer focused on user-friendly and modern
+                                        interfaces.</div>
+                                    <div class="fact-item">I'm currently a college student studying design and
+                                        technology.
+                                    </div>
+                                    <div class="fact-item">I work with tools like Figma, Photoshop, and Xcode.</div>
+                                    <div class="fact-item">I find design inspiration in everyday life and real user
+                                        needs.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resume Page -->
+            <section id="resume-page">
+                <div class="resume-section">
+                    <div class="parallax-bg">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                    </div>
+                    <div class="container">
+                        <h1 class="section-title">
+                            <span class="animated-text"><span>Resume</span></span>
+                        </h1>
+                        <div class="resume-container">
+                            <div class="resume-img-container">
+                                <img src="./assets/Portfolio.png" alt="Sabina Profile" class="resume-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Page -->
+            <section id="work-page">
+                <div class="work-section">
+                    <div class="parallax-bg">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-3"></div>
+                    </div>
+                    <div class="container">
+                        <h1 class="section-title">
+                            <span class="animated-text"><span>My Work</span></span>
+                        </h1>
+                        <div class="work-grid">
+                            <div class="work-item">
+                                <div class="work-img-container">
+                                    <img src="./assets/music.png" alt="Music App" class="work-img">
+                                </div>
+                                <div class="work-content">
+                                    <h3 class="work-title">AUDIRIA</h3>
+                                    <div class="work-category">Mobile App Design</div>
+                                    <p class="work-description">A minimalist music app with an intuitive interface for
+                                        easy
+                                        streaming and playlist creation.</p>
+                                    <a href="https://www.behance.net/gallery/223229647/Music-Mobile-App"
+                                        class="view-project">View Project</a>
+                                </div>
+                            </div>
+
+                            <div class="work-item">
+                                <div class="work-img-container">
+                                    <img src="./assets/sho.png" alt="Shop App" class="work-img">
+                                </div>
+                                <div class="work-content">
+                                    <h3 class="work-title">ShowZaar</h3>
+                                    <div class="work-category">Mobile App Design</div>
+                                    <p class="work-description">
+                                        A clean, modern shop app focused on simple browsing and a smooth buying
+                                        experience.
+                                    </p>
+                                    <a href="https://www.behance.net/gallery/223207387/ShowZaar-Online-Shop"
+                                        class="view-project">View Project</a>
+                                </div>
+                            </div>
+
+                            <div class="work-item">
+                                <div class="work-img-container">
+                                    <img src="./assets/burg.png" alt="Yumura" class="work-img">
+                                </div>
+                                <div class="work-content">
+                                    <h3 class="work-title">Yumura</h3>
+                                    <div class="work-category">Mobile App Design</div>
+                                    <p class="work-description">A clean, modern burger app that lets you easily order
+                                        your
+                                        favorite burgers online for a fast and seamless experience.</p>
+                                    <a href="https://www.behance.net/gallery/223223427/Burger-Mobile-Design-App"
+                                        class="view-project">View Project</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+
+                    <div class="social-links">
+                        <a href="https://t.me/yoshiok" class="social-link" target="_blank">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                        <a href="https://instagram.com/ssabinami" class="social-link" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="copyright">&copy; 2025 All rights reserved.</div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Wait for page to load
+            window.addEventListener('load', function () {
+                // Hide loader
+                const loaderWrapper = document.querySelector('.loader-wrapper');
+                setTimeout(function () {
+                    loaderWrapper.style.opacity = '0';
+                    setTimeout(function () {
+                        loaderWrapper.style.display = 'none';
+                    }, 500);
+                }, 1000);
+
+                // Navbar scroll effect
+                const nav = document.querySelector('nav');
+                window.addEventListener('scroll', function () {
+                    if (window.scrollY > 50) {
+                        nav.classList.add('scrolled');
+                    } else {
+                        nav.classList.remove('scrolled');
+                    }
+                });
+
+                // Custom cursor
+                const cursor = document.querySelector('.cursor');
+                const cursorFollower = document.querySelector('.cursor-follower');
+
+                document.addEventListener('mousemove', function (e) {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+
+                    setTimeout(function () {
+                        cursorFollower.style.left = e.clientX + 'px';
+                        cursorFollower.style.top = e.clientY + 'px';
+                    }, 100);
+                });
+
+                document.addEventListener('mousedown', function () {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(0.7)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                });
+
+                document.addEventListener('mouseup', function () {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+
+                // Hover effect for links
+                const links = document.querySelectorAll('a, .tool-item, .fact-item, .work-item');
+                links.forEach(link => {
+                    link.addEventListener('mouseenter', function () {
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                        cursorFollower.style.transform = 'translate(-50%, -50%) scale(2)';
+                    });
+
+                    link.addEventListener('mouseleave', function () {
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                        cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    });
+                });
+
+                // Navigation functionality
+                const navLinks = document.querySelectorAll('.nav-link');
+                const pages = document.querySelectorAll('section');
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        // Remove active class from all links
+                        navLinks.forEach(item => item.classList.remove('active'));
+
+                        // Add active class to clicked link
+                        this.classList.add('active');
+
+                        // Hide all pages
+                        pages.forEach(page => {
+                            page.style.opacity = '0';
+                            setTimeout(() => {
+                                page.classList.remove('active-page');
+                            }, 500);
+                        });
+
+                        // Show corresponding page
+                        const pageId = this.getAttribute('data-page');
+                        setTimeout(() => {
+                            const targetPage = document.getElementById(pageId);
+                            targetPage.classList.add('active-page');
+                            setTimeout(() => {
+                                targetPage.style.opacity = '1';
+                            }, 50);
+
+                            // Reset scroll position
+                            window.scrollTo(0, 0);
+
+                            // Reinitialize reveal animations
+                            revealElements();
+                        }, 500);
+                    });
+                });
+
+                // Reveal on scroll
+                function revealElements() {
+                    const reveals = document.querySelectorAll('.reveal');
+
+                    reveals.forEach(element => {
+                        const windowHeight = window.innerHeight;
+                        const elementTop = element.getBoundingClientRect().top;
+                        const elementVisible = 150;
+
+                        if (elementTop < windowHeight - elementVisible) {
+                            element.classList.add('active');
+                        } else {
+                            element.classList.remove('active');
+                        }
+                    });
+                }
+
+                window.addEventListener('scroll', revealElements);
+                revealElements();
+
+                // Parallax effect
+                window.addEventListener('mousemove', function (e) {
+                    const shapes = document.querySelectorAll('.shape');
+                    const x = e.clientX / window.innerWidth;
+                    const y = e.clientY / window.innerHeight;
+
+                    shapes.forEach(shape => {
+                        const speed = parseInt(shape.classList[0].split('-')[1]) * 10;
+                        const moveX = (x - 0.5) * speed;
+                        const moveY = (y - 0.5) * speed;
+
+                        shape.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    });
+                });
+
+                // Text animation
+                const animatedTexts = document.querySelectorAll('.animated-text span');
+                animatedTexts.forEach((text, index) => {
+                    text.style.animationDelay = `${0.1 * index}s`;
+                });
+            });
+
+        </script>
+    </body>
+
+    </html>
+</body>
+
+</html>
